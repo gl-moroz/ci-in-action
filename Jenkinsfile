@@ -8,7 +8,11 @@ pipeline {
         }
         stage('Build') { 
             steps {
-                sh './gradlew printenv' 
+            	withCredentials([
+            		usernamePassword(credentialsId: 'test-creds', usernameVariable: 'TEST_USERNAME1', passwordVariable: 'TEST_PASSWORD1')
+            	]) {
+            		sh './gradlew printenv'   
+            	}
             }
         }
     }
