@@ -11,7 +11,7 @@ pipeline {
             	withCredentials([
             		usernamePassword(credentialsId: 'test-creds', usernameVariable: 'TEST_USERNAME1', passwordVariable: 'TEST_PASSWORD1')
             	]) {
-            		sh './gradlew printenv'   
+            		sh './gradlew -Pnot.provided=$NOT_PROVIDED_VAR printenv'   
             	}
             }
         }

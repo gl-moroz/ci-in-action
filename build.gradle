@@ -21,6 +21,6 @@ dependencies {
 
 task printenv { 
     doLast { 
-        println 'Username ' + "$System.env.TEST_USERNAME1"
+        println 'Username ' + "$System.env.TEST_USERNAME1" + ' notprovided: ' + project.property("not.provided")
     }
 }
