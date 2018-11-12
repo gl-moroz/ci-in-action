@@ -4,11 +4,12 @@ pipeline {
         stage('Checkout') {
         	steps {
         		checkout scm
+        		sh 'git status'
         	}
         }
         stage('Build') { 
             steps {
-            	sh 'git branch --set-upstream master origin/master'
+            	sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
             
             	withCredentials([
             		usernamePassword(credentialsId: 'test-creds', usernameVariable: 'TEST_USERNAME1', passwordVariable: 'TEST_PASSWORD1')
