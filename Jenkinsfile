@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Checkout') {
         	steps {
-        		checkout scm
+        		//checkout scm
+        		checkout([$class: 'GitSCM', branches: [[name: '**']]])
         		sh 'git status'
         	}
         }
