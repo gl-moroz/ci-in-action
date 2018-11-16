@@ -13,7 +13,7 @@ pipeline {
             	script {
             		def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
   					def v = matcher ? matcher[0][1] : null
-					//env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()
+					
 					sh 'echo Processing ${v}'            	    
             	}
 
