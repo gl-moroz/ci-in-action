@@ -14,13 +14,11 @@ pipeline {
             		def v = version()
             		def v00 = v[0][0]
             		def v01 = v[0][1]
-            		def v02 = v[0][2]
             		def v10 = v[1][0]
             		def v11 = v[1][1]
 					
 					sh "echo Processing ${v00}"            	    
 					sh "echo Processing ${v01}"
-					sh "echo Processing ${v02}"
 					sh "echo Processing ${v10}"
 					sh "echo Processing ${v11}"
             	}
