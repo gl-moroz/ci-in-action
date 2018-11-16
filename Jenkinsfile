@@ -31,6 +31,6 @@ pipeline {
 
 @NonCPS
 def version() {
-  def matcher = readFile('gradle.properties') =~ 'set.version[\\s]*=[\\s]*(.+)[\\s]*$'
+  def matcher = readFile('gradle.properties') =~ 'set\\.version[\\s]*=[\\s]*(.+)[\\s]*$'
   matcher ? matcher[0][1] : null
 }
