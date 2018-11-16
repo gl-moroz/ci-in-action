@@ -12,8 +12,9 @@ pipeline {
             steps {
             	script {
             		def v = version()
+            		def v2 = version2()
 					
-					sh "echo Processing ${v}"            	    
+					sh "echo Processing ${v} | ${v2}"            	    
             	}
 
 	            
@@ -33,4 +34,10 @@ pipeline {
 def version() {
   def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
   matcher ? matcher[0][1] : null
+}
+
+@NonCPS
+def version2() {
+  def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
+  matcher ? matcher[0][2] : null
 }
