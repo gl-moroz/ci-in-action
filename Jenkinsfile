@@ -11,8 +11,7 @@ pipeline {
         stage('Build') { 
             steps {
             	script {
-            		def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
-  					def v = matcher ? matcher[0][1] : null
+            		def v = version()
 					
 					sh 'echo Processing ${v}'            	    
             	}
@@ -28,4 +27,10 @@ pipeline {
             }
         }
     }
+}
+
+@NonCPS
+def version() {
+  def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
+  matcher ? matcher[0][1] : null
 }
