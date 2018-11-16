@@ -1,5 +1,8 @@
 pipeline {
-    agent any 
+    agent any
+    //parameters {
+    //    string(name: 'release_ver')
+    //} 
     stages {
         stage('Checkout') {
         	steps {
@@ -10,9 +13,11 @@ pipeline {
         }
         stage('Build') { 
             steps {
-            	sh 'export RELEASE_VERSION=$(cat gradle.properties | sed \'s/.*=//g\')'
-            	sh 'echo Processing $RELEASE_VERSION'
-            	sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
+            	def props = readProperties  file: 'gradle.properties'
+            	//env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()
+            	sh 'echo ${props[\'set.version\']}'
+            	//sh 'echo Processing ${env.release_ver}'
+            	//sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
             
             	withCredentials([
             		usernamePassword(credentialsId: 'test-creds', usernameVariable: 'TEST_USERNAME1', passwordVariable: 'TEST_PASSWORD1')
