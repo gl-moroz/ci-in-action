@@ -1,4 +1,7 @@
 buildscript {
+	ext {
+		braveVersion = '5.5.0'
+	}
 	repositories {
 		mavenCentral()
 	}
@@ -6,6 +9,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 group = 'exp.gl-moroz'
 version = '0.0.1-SNAPSHOT'
@@ -16,11 +20,47 @@ repositories {
 }
 
 dependencies {
+	compile("io.zipkin.brave:brave-context-slf4j:${braveVersion}")
+	compile("io.zipkin.brave:brave-instrumentation-httpclient:${braveVersion}")
 	
+	compile("org.apache.httpcomponents:fluent-hc:4.5.5")
+	
+	compile("org.slf4j:slf4j-api:1.7.25")
+	compile("ch.qos.logback:logback-classic:1.2.3")
+	compile("ch.qos.logback:logback-core:1.2.3")
+	
+	compile("org.slf4j:slf4j-api:1.7.25")
+	
+}
+
+publishing {
+	repositories {
+		maven {
+			url {
+				'http://localhost/artifactory/example-repo-local'
+			}
+		}
+	}
 }
 
 task printenv { 
     doLast { 
-        println 'Username ' + "$System.env.TEST_USERNAME1" + ' notprovided: ' + project.property("not.provided")
+        println "testProp -> ${project.findProperty('testProp') ?: 'default value for testProp'}"
+        println "testProp2 -> ${project.findProperty('testProp2') ?: 'default value for testProp2'}"
+        println "testProp3 -> ${project.findProperty('testProp3') ?: 'default value for testProp3'}"
     }
+}
+
+task listrepos {
+    doLast {
+        println "Repositories:"
+        project.repositories.each { println "Name: " + it.name + "; url: " + it.url }
+   }
+}
+
+task listPublishRepos {
+    doLast {
+        println "Publish Repositories:"
+        publishing.repositories.each { println "Name: " + it.name + "; url: " + it.url }
+   }
 }

@@ -10,6 +10,8 @@ pipeline {
         }
         stage('Build') { 
             steps {
+            	sh 'export RELEASE_VERSION=$(cat gradle.properties | sed \'s/.*//g\')'
+            	sh 'echo Processing $RELEASE_VERSION'
             	sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
             
             	withCredentials([
