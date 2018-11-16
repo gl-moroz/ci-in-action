@@ -6,14 +6,16 @@ pipeline {
         		//checkout scm
         		checkout([$class: 'GitSCM', branches: [[name: '**']]])
         		sh 'git status'
+        		sh 'git config user.name jenkins'
+				sh 'git config user.email jenkins@example.com'
         	}
         }
         stage('Build') { 
             steps {
             	sh ''' 
             		export RELEASE_VERSION=$(cat gradle.properties | sed \'s/.*=//g\') && \
-            		git tag -a \'rel-$RELEASE_VERSION\' -m \"tagging with $RELEASE_VERSION\" HEAD && \
-            		git push origin \'rel-$RELEASE_VERSION\'
+            		git tag -a \"rel-$RELEASE_VERSION\" -m \"tagging with $RELEASE_VERSION\" HEAD && \
+            		git push origin \"rel-$RELEASE_VERSION\"
             	'''
 	            
 	            withCredentials([
