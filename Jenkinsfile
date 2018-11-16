@@ -12,8 +12,8 @@ pipeline {
             steps {
             	sh ''' 
             		export RELEASE_VERSION=$(cat gradle.properties | sed \'s/.*=//g\') && \
-            		git tag -a "rel-$RELEASE_VERSION" -m "tagging with $RELEASE_VERSION" HEAD \
-            		git push origin "rel-$RELEASE_VERSION"
+            		git tag -a \'rel-$RELEASE_VERSION\' -m \"tagging with $RELEASE_VERSION\" HEAD && \
+            		git push origin \'rel-$RELEASE_VERSION\'
             	'''
 	            
 	            withCredentials([
