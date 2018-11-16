@@ -16,7 +16,7 @@ pipeline {
 				    sh ''' 
 	            		export RELEASE_VERSION=$(cat gradle.properties | sed \'s/.*=//g\') && \
 	            		git tag -a \"rel-$RELEASE_VERSION\" -m \"tagging with $RELEASE_VERSION\" HEAD && \
-	            		git push https://${GIT_USERNAME}:${GIT_PASSWORD}@<REPO> \"rel-$RELEASE_VERSION\"
+	            		git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com \"rel-$RELEASE_VERSION\"
             		'''
 				}
 	            
