@@ -1,8 +1,5 @@
 pipeline {
     agent any
-    parameters {
-        string(name: 'release_ver')
-    } 
     stages {
         stage('Checkout') {
         	steps {
@@ -14,10 +11,12 @@ pipeline {
         stage('Build') { 
             steps {
             	script {
-					env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()            	    
+            		def v = version()
+					//env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()
+					sh 'echo Processing ${v}'            	    
             	}
 
-	            sh 'echo Processing ${env.release_ver}'
+	            
 	            //sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
 	            
 	            withCredentials([
@@ -28,4 +27,8 @@ pipeline {
             }
         }
     }
+    def version() {
+	  def matcher = readFile('gradle.properties') =~ 'set.version=(.+)'
+	  matcher ? matcher[0][1] : null
+	}
 }
