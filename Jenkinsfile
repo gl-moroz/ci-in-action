@@ -13,7 +13,7 @@ pipeline {
             	script {
             		def v = version()
 					
-					sh 'echo Processing ${v}'            	    
+					sh "echo Processing ${v}"            	    
             	}
 
 	            
