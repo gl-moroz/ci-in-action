@@ -13,7 +13,10 @@ pipeline {
         }
         stage('Build') { 
             steps {
-	            env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()
+            	script {
+					env.release_ver =  sh (script: 'cat gradle.properties | sed \'s/.*=//g\'', returnStdout: true).trim()            	    
+            	}
+
 	            sh 'echo Processing ${env.release_ver}'
 	            //sh 'git branch --set-upstream $BRANCH_NAME origin/$BRANCH_NAME'
 	            
